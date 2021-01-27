@@ -1,14 +1,9 @@
-name: 三峡大学疫情自动报平安
+name: Dlpu Auto Sign In
+
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
   schedule:
-    # - cron: 0 22,14 * * * 北京时间每天8点自动执行
-    - cron: 0 20 * * *
-  watch:
-    types: started
+    - cron: '0 1 * * *'
 
 jobs:
   sign_in:
@@ -29,6 +24,4 @@ jobs:
       env:
           PARM: ${{ secrets.PARM }}
       run: |
-          pip install requests
-          echo 开始报平安
           python3 yiqing.py

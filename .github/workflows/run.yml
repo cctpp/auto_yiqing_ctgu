@@ -26,9 +26,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: 'Sign In'
-        env:
+      env:
           PARM: ${{ secrets.PARM }}
-        run: |
+      run: |
           pip install requests
           echo 开始报平安
           python3 yiqing.py

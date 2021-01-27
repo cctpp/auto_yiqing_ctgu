@@ -16,7 +16,7 @@ def report(usr,pas):
     sess = Session()
     sess.headers['Content-Type'] = 'multipart/form-data; boundary=\
         ----WebKitFormBoundary5lPtCfVeRqiu7n6h'
-    sess.headers['Host'] = 'yiqing.ctgu.edu.cn'
+    sess.headers['Host'] = 'smart.hnsyu.net'
     sess.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
         AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
     sess.headers['Connection'] =  'keep-alive'
@@ -25,19 +25,18 @@ def report(usr,pas):
     sess.headers['Accept-Language'] = 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-TW;q=0.6'
     sess.headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;\
         q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
-    r=sess.get('http://yiqing.ctgu.edu.cn/wx/index/login.do?currSchool=ctgu&\
-               CURRENT_YEAR=2019&showWjdc=false&studentShowWjdc=false')
+    r=sess.get('http://smart.hnsyu.net/xyt/wx/index/login.do')
     
     data=encode_multipart_formdata({'username':usr,'password':pas},
                                    '----WebKitFormBoundary5lPtCfVeRqiu7n6h')
-    login=sess.post('http://yiqing.ctgu.edu.cn/wx/index/loginSubmit.do',data=data[0])
+    login=sess.post('http://smart.hnsyu.net/xyt/wx/index/loginSubmit.do',data=data[0])
     
     if(login.text!='success'):
         log.append([[usr,pas],usr])
         #return 0
-    r=sess.post('http://yiqing.ctgu.edu.cn/wx/health/studentHis.do')
+    r=sess.post('http://smart.hnsyu.net/xyt/wx/health/studentHis.do')
     his=eval(r.text.replace('null','None'))
-    r=sess.get('http://yiqing.ctgu.edu.cn/wx/health/toApply.do')
+    r=sess.get('http://smart.hnsyu.net/xyt/wx/health/toApply.do')
     apply={
         'province':'',
         'city':'',
@@ -70,7 +69,7 @@ def report(usr,pas):
             apply[key] = his[0][key] if his[0][key]!=None else ''
         apply['ttoken']=findall('ttoken" value="(.*?)"',r.text) or findall('stoken=(.*?)&',r.url)[0]
         del sess.headers['Content-Type']
-        r=sess.post('http://yiqing.ctgu.edu.cn/wx/health/saveApply.do',data=apply)
+        r=sess.post('http://smart.hnsyu.net/xyt/wx/health/saveApply.do',data=apply)
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])

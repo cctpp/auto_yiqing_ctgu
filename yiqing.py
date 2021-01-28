@@ -81,7 +81,7 @@ def report(usr,pas):
                 "text" : title,
                 "desp" : content
             }
-        req = requests.post(api, data = data)
+        post(api, data = data)
             
 
     sess.close()

@@ -76,7 +76,7 @@ def report(usr,pas):
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        browser = await launcher.launch()
+        browser = launcher.launch()
         wx = browser.newPage()
         wx.goto('https://sc.ftqq.com/' + wxts + '.send?text=平安行动打卡成功！'+ his[0]['xm'])
             

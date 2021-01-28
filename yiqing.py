@@ -7,6 +7,8 @@ from re import findall
 from _thread import start_new_thread 
 from time import time,localtime,strftime
 import os
+import asyncio
+import json
 from pyppeteer import launcher
 parm = eval(os.environ['PARM'])
 wxts = os.environ["WXTS"]
@@ -76,7 +78,16 @@ def report(usr,pas):
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        r=sess.post('https://sc.ftqq.com/' + wxts + '.send?text=平安行动打卡成功！'+ his[0]['xm'])
+        async def checkin():
+            accounts = json.loads(input().strip())
+            for a in accounts:
+                try:
+                    browser = await launcher.launch()
+                    print('#####################')
+                    page = await browser.newPage()
+                    wx = await browser.newPage()
+                    await wx.goto('https://sc.ftqq.com/' + wxts + '.send?text=平安行动打卡成功！'+ his[0]['xm'])
+      
             
 
     sess.close()

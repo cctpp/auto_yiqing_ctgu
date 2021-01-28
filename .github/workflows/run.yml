@@ -1,10 +1,13 @@
-name: SYU Auto Sign In
+name: auto syu
 
 on:
   push:
-  schedule:
-    - cron: '0 22 * * *'
-
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch: # 手动触发
+  schedule: # 计划任务触发
+    - cron: "0 22 * * *" # cron表达式，Actions时区是UTC时间，所以要往前推8个小时
 jobs:
   sign_in:
     runs-on: ubuntu-latest

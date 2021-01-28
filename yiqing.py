@@ -75,7 +75,7 @@ def report(usr,pas):
         r=sess.post('http://smart.hnsyu.net/xyt/wx/health/saveApply.do',data=apply)
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']]
         api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = "签到成功！"
+        title = " 签到成功！"
         content = "主人，签到成功啦！"
         data = {
                 "text" : title,

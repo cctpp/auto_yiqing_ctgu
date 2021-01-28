@@ -36,15 +36,6 @@ def report(usr,pas):
     
     if(login.text!='success'):
         log.append([[usr,pas],usr])
-    else:
-        api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = "签到失败！"
-        content = "签到失败请手动签到"
-        data = {
-                "text" : title,
-                "desp" : content
-            }
-        r = requests.post(api, data = data)
         #return 0
     r=sess.post('http://smart.hnsyu.net/xyt/wx/health/studentHis.do')
     his=eval(r.text.replace('null','None'))
@@ -82,7 +73,7 @@ def report(usr,pas):
         apply['ttoken']=findall('ttoken" value="(.*?)"',r.text) or findall('stoken=(.*?)&',r.url)[0]
         del sess.headers['Content-Type']
         r=sess.post('http://smart.hnsyu.net/xyt/wx/health/saveApply.do',data=apply)
-        log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
+        log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']]
         api = 'https://sc.ftqq.com/' + wxts + '.send'
         title = "签到成功！"
         content = "主人，签到成功啦！"
@@ -94,7 +85,14 @@ def report(usr,pas):
         
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        
+        api = 'https://sc.ftqq.com/' + wxts + '.send'
+        title = "签到失败！，可能今天已经签到过"
+        content = "请手动检查签到情况"
+        data = {
+                "text" : title,
+                "desp" : content
+            }
+        r = requests.post(api, data = data)
        
       
             

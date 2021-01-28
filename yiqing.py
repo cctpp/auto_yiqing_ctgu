@@ -36,6 +36,15 @@ def report(usr,pas):
     
     if(login.text!='success'):
         log.append([[usr,pas],usr])
+    else:
+        api = 'https://sc.ftqq.com/' + wxts + '.send'
+        title = "签到失败！"
+        content = "签到失败请手动签到"
+        data = {
+                "text" : title,
+                "desp" : content
+            }
+        r = requests.post(api, data = data)
         #return 0
     r=sess.post('http://smart.hnsyu.net/xyt/wx/health/studentHis.do')
     his=eval(r.text.replace('null','None'))
@@ -74,17 +83,18 @@ def report(usr,pas):
         del sess.headers['Content-Type']
         r=sess.post('http://smart.hnsyu.net/xyt/wx/health/saveApply.do',data=apply)
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
-    else:
-        log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
         api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']]) 
+        title = "签到成功！"
         content = "主人，签到成功啦！"
         data = {
                 "text" : title,
                 "desp" : content
             }
         r = requests.post(api, data = data)
-        print(r.content)
+        
+    else:
+        log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
+        
        
       
             

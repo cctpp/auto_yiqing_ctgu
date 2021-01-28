@@ -13,7 +13,6 @@ wxts = os.environ["WXTS"]
 tmp = datetime.today()+timedelta(hours=8)
 today = tmp.strftime("%Y-%m-%d")
 log = []
-notification = 1
 
 def report(usr,pas):
     sess = Session()
@@ -82,7 +81,8 @@ def report(usr,pas):
                 "text" : title,
                 "desp" : content
             }
-             r = requests.post(api, data = data)           
+             r = requests.post(api, data = data)     
+            
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
         api = 'https://sc.ftqq.com/' + wxts + '.send'

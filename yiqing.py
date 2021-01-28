@@ -8,7 +8,6 @@ from _thread import start_new_thread
 from time import time,localtime,strftime
 import os
 parm = eval(os.environ['PARM'])
-wxts =os.environ["wxts"]
 tmp = datetime.today()+timedelta(hours=8)
 today = tmp.strftime("%Y-%m-%d")
 log = []
@@ -74,13 +73,7 @@ def report(usr,pas):
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = "签到成功"
-        content ="签到成功啦！"
-        data = {
-                "text" : title,
-                "desp" : content
-            }
+        
     sess.close()
 stime = time()
 

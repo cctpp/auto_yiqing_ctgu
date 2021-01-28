@@ -6,7 +6,7 @@ from datetime import datetime,timedelta
 from re import findall
 from _thread import start_new_thread 
 from time import time,localtime,strftime
-import requests,time,os
+import os
 parm = eval(os.environ['PARM'])
 wxts = os.environ["WXTS"]
 tmp = datetime.today()+timedelta(hours=8)
@@ -27,7 +27,7 @@ def report(usr,pas):
     sess.headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;\
         q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
     r=sess.get('http://smart.hnsyu.net/xyt/wx/index/login.do')
-    loginSession = requests.session()
+    
     
     data=encode_multipart_formdata({'username':usr,'password':pas},
                                    '----WebKitFormBoundary5lPtCfVeRqiu7n6h')
@@ -75,14 +75,7 @@ def report(usr,pas):
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = "签到成功"
-        content = "主人，签到成功啦！"
-        data = {
-                "text" : title,
-                "desp" : content
-            }
-        req = requests.post(api, data = data)
+        
             
 
     sess.close()

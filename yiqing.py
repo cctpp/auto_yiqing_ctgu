@@ -86,14 +86,7 @@ def report(usr,pas):
         
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = "签到失败！，可能今天已经签到过"
-        content = "请手动检查签到情况"
-        data = {
-                "text" : title,
-                "desp" : content
-            }
-        r = requests.post(api, data = data)
+        
        
       
             

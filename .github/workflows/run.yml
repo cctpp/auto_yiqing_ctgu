@@ -19,6 +19,8 @@ jobs:
       run: |
         python -m pip install --upgrade requests
         python -m pip install --upgrade pip
+        pip install pyppeteer
+        pyppeteer-install
     - name: 'Sign In'
       env:
           PARM: ${{ secrets.PARM }}

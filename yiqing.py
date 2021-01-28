@@ -75,13 +75,13 @@ def report(usr,pas):
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
         api = 'https://sc.ftqq.com/' + wxts + '.send'
-            title = "签到成功"
-            content = "主人，签到成功啦！"
-            data = {
+        title = "签到成功"
+        content = "主人，签到成功啦！"
+        data = {
                 "text" : title,
                 "desp" : content
             }
-            req = requests.post(api, data = data)
+        req = requests.post(api, data = data)
             
 
     sess.close()

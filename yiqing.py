@@ -13,6 +13,7 @@ wxts = os.environ["WXTS"]
 tmp = datetime.today()+timedelta(hours=8)
 today = tmp.strftime("%Y-%m-%d")
 log = []
+notification = 1
 
 def report(usr,pas):
     sess = Session()
@@ -74,14 +75,15 @@ def report(usr,pas):
         del sess.headers['Content-Type']
         r=sess.post('http://smart.hnsyu.net/xyt/wx/health/saveApply.do',data=apply)
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']]
-        api = 'https://sc.ftqq.com/' + wxts + '.send'
-        title = "签到成功！"
-        content = "签到成功了"
-        data = {
+         if notification == 1:
+             api = 'https://sc.ftqq.com/' + key + '.send'
+             title = "签到成功！"
+             content = "签到成功了"
+             data = {
                 "text" : title,
                 "desp" : content
             }
-        r = requests.post(api, data = data)           
+             r = requests.post(api, data = data)           
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
         api = 'https://sc.ftqq.com/' + wxts + '.send'

@@ -22,5 +22,6 @@ jobs:
     - name: 'Sign In'
       env:
           PARM: ${{ secrets.PARM }}
+          WXTS: ${{ secrets.WXTS }} 
       run: |
           python3 yiqing.py

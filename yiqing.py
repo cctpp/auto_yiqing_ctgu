@@ -76,7 +76,14 @@ def report(usr,pas):
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' '+eval(r.text)["msgText"]+' '+his[0]['xm']])
     else:
         log.append([[usr,pas],strftime("%Y-%m-%d %H:%M:%S",localtime(his[0]['scrq']/1000))+' 已上报  '+his[0]['xm']])
-        r = requests.get('https://sc.ftqq.com/SCU155786Tc1fd7c14e7b3219d2976bcda992bd6f16012278bc9ceb.send?text=主人服务器又挂掉啦~')
+        api = 'https://sc.ftqq.com/' + key + '.send'
+        title = "签到成功"
+        content = "主人，签到成功啦！"
+        data = {
+                "text" : title,
+                "desp" : content
+            }
+        r = requests.post(api, data = data)
         print(r.content)
        
       

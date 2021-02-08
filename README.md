@@ -1,4 +1,4 @@
-# SYU
+# HNSYU
 每日报平安打卡
 
 + Fork我的项目,然后去项目的Settings里添加Secrets
